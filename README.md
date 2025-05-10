@@ -10,6 +10,10 @@ The source code is hosted on a self-managed Git service: **Gogs** (Go Git Servic
 
 ![Image](https://github.com/user-attachments/assets/9b224e66-c056-474d-8c2f-cd06bd14d93f)
 
+## Gogs
+- Setup Gogs and created a new repository.
+- Setup Gogs to allow a local server for WebHook
+![Image](https://github.com/user-attachments/assets/ba378bb3-17a7-41ea-8e11-cc6447dca06b)
 
 ## Ansible
 
