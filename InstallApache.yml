@@ -1,0 +1,62 @@
+- hosts: all
+  become: true
+
+  tasks:
+    - name: HTTPD Installation
+      package:
+        name: httpd
+        state: present
+      notify:
+        - start_httpd
+
+    - name: Copy custom Apache config
+      copy:
+        src: custom_httpd.conf
+        dest: /etc/httpd/conf.d/httpd_srv.conf
+        mode: '0644'
+      notify:
+        - restart_httpd
+
+    - name: Deploy custom logrotate config for Apache
+      copy:
+        src: custom_logrotate
+        dest: /etc/logrotate.d/httpd_custom
+        mode: '0644'
+
+    - name: Copy Simple test Page
+      copy:
+        src: index.html
+        dest: /srv/www/index.html
+
+    - name: Allow Apache to serve files from /srv/www
+      community.general.sefcontext:
+        target: '/srv/www(/.*)?'
+        setype: httpd_sys_rw_content_t
+        state: present
+      notify: 
+         - restorecon
+
+    - name: Allow HTTP traffic through port 80
+      firewalld:
+        port: 80/tcp
+        state: enabled
+        immediate: true
+        permanent: true
+
+  handlers:
+    - name: start_httpd
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: restart_httpd
+      service:
+        name: httpd
+        state: restarted
+        enabled: true
+
+    - name: restorecon
+      command: restorecon -Rv /srv/www
+
+

@@ -1,0 +1,13 @@
+# Custom Logrotate for all the logs in /var/log/httpd/
+
+/var/log/httpd/*.log {
+    daily
+    rotate 14
+    notifempty
+    compress
+    delaycompress
+    sharedscripts
+    postrotate
+        /bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true
+    endscript
+}
