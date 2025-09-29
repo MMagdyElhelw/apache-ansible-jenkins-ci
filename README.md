@@ -1,4 +1,7 @@
-# Mohamed Elhelw Project
+# Summary
+Automated provisioning and CI/CD for Apache HTTP Server — Ansible playbooks and a Jenkins pipeline that provision Apache (httpd), enforce SELinux contexts for /srv/www, configure firewall and logrotate, and build/tag a Docker image as a deployable artifact. The project demonstrates end-to-end automation from source control (self-hosted Gogs) through build and artifact archiving to repeatable environment provisioning.
+
+Why this matters: the repository shows how to make Apache deployments repeatable, auditable, and container-ready — reducing manual drift and enabling faster, safer deployments in test and production.
 
 ## Overview
 
